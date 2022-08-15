@@ -18,7 +18,7 @@ If you are a registered participant and would like to submit your results, pleas
 
 ## 📊 Evaluation and challenge leader board
 
-Tasks 1, 2, and 3 will be evaluated according to the scripts in `evaluation`. To evaluate your method on validation data, generate predictions according to the `docker_templates' and run
+Tasks 1, 2, and 3 will be evaluated according to the scripts in `evaluation`. To evaluate your method on validation data, generate predictions according to the `docker_templates` and run
 ```
 python evaluation/eval_synthetic_depth.py /path/to/predictions /path/to/groundtruth
 ```
