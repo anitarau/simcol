@@ -9,11 +9,11 @@ import collections
 from PIL import Image
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
-def plot_growing_cloud(datasetname, scene):
+def plot_growing_cloud(datasetname, scene, data_root):
     locations = []
     rotations = []
-    loc_reader = open('/path/to/dataset/SavedPosition_' + datasetname + scene + '.txt', 'r')
-    rot_reader = open('/path/to/dataset/SavedRotationQuaternion_' + datasetname + scene + '.txt',
+    loc_reader = open(data_root +'SavedPosition_' + datasetname + scene + '.txt', 'r')
+    rot_reader = open(data_root +'SavedRotationQuaternion_' + datasetname + scene + '.txt',
                       'r')
     for line in loc_reader:
         locations.append(list(map(float, line.split())))
@@ -59,10 +59,9 @@ def plot_growing_cloud(datasetname, scene):
 
     for j in range(0, len(poses_mat), 5):
         gt = poses_mat[j]
-        depth0 = np.array(Image.open('/path/to/dataset/Frames_'+datasetname + scene + '/Depth_' + str(j).zfill(4) + '.png'))/256/255 * 20
+        depth0 = np.array(Image.open(data_root +'Frames_'+datasetname + scene + '/Depth_' + str(j).zfill(4) + '.png'))/256/255 * 20
 
-        im0 = plt.imread(
-            '/path/to/dataset/Frames_'+datasetname + scene + '/FrameBuffer_' + str(j).zfill(4) + '.png')
+        im0 = plt.imread(data_root + 'Frames_'+datasetname + scene + '/FrameBuffer_' + str(j).zfill(4) + '.png')
         im0 = im0[:, :, :3].reshape((-1, 3))
 
         cam_coords0 = pixel2cam(torch.tensor(depth0.reshape((1, 475, 475))).float(),
@@ -101,4 +100,5 @@ def set_id_grid(depth):
 if __name__ == "__main__":
     datasetname = 'S'
     scene = '1'
-    plot_growing_cloud(datasetname, scene)
+    data_root = '/path/to/data/'
+    plot_growing_cloud(datasetname, scene, data_root)
