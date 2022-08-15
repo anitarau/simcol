@@ -14,4 +14,11 @@ Download the datasets from [Synapse](https://www.synapse.org/#!Synapse:syn285486
 
 ## 🌍 Submitting to the SimCol-to-3D MICCAI challenge
 
-If you are a registered participant and would like to submit your results, please use the `docker_templates` and follow the official submission guidelines. 
+If you are a registered participant and would like to submit your results, please use the `docker_templates` and follow the official [submission guide](https://github.com/anitarau/simcol/blob/main/EndoVis-SimCol2022_submission_guide.pdf).
+
+## 📊 Evaluation and challenge leader board
+
+Tasks 1, 2, and 3 will be evaluated according to the scripts in `evaluation`. To evaluate your method on validation data, generate predictions according to the `docker_templates' and run
+```
+python evaluation/eval_synthetic_depth.py /path/to/predictions /path/to/groundtruth
+```
