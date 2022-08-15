@@ -10,7 +10,7 @@ The data from our paper and sequences from additional anatomies can be accessed 
 
 ## ⚙ Getting started
 
-Download the datasets from [Synapse](https://www.synapse.org/#!Synapse:syn28548633/wiki/617126). To visualize the data run visualize_3D_data.py with the updated path to the data. 
+Download the datasets from [Synapse](https://www.synapse.org/#!Synapse:syn28548633/wiki/617126). To visualize the data like above run `visualize_3D_data.py` with the updated path to the data. 
 
 ## 🌍 Submitting to the SimCol-to-3D MICCAI challenge
 
