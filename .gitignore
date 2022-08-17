@@ -1,4 +1,6 @@
 .DS_Store
+/docker_templates/SimCol3D-task3_pose-docker/.DS_Store
+/docker_templates/SimCol3D-task3_pose-docker/images/.DS_Store
 /For_docker/.DS_Store
 /For_docker/._DS_Store
 /For_docker/images/output
