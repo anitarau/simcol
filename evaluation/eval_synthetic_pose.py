@@ -64,7 +64,7 @@ def process_poses(test_folders, INPUT_PATH, GT_PATH):
             out = get_relative_pose(gt_abs_poses[i],gt_abs_poses[i+delta])
             gt_rel_poses.append(out)
 
-        first_pose = np.eye(4)  # define arbitrarily
+        first_pose = gt_abs_poses[0]  # define arbitrarily
 
         # read predictions from files
         for i in range(0,len(input_file_list),delta):
@@ -73,11 +73,12 @@ def process_poses(test_folders, INPUT_PATH, GT_PATH):
             preds.append(pred_rel_pose.reshape((4,4)))
 
         ## Relative poses --> absolute poses
-        gt_traj, gt_traj_4x4 = get_traj(first_pose, np.array(gt_rel_poses))  # get_traj() should map relative gt poses back to gt_abs_poses
+        gt_traj, gt_traj_4x4 = get_traj(first_pose, np.array(gt_rel_poses))  # This is not necessary, just to show that get_traj() maps relative gt poses back to gt_abs_poses
         pred_traj, pred_traj_4x4 = get_traj(first_pose, np.array(preds))
 
-        if (gt_abs_poses - gt_traj_4x4 < 10e-12).all():
-            print('Correctly switching between absolute and relative ground truth poses.')
+        ## uncomment below to verify that get_traj() maps back to gt_abs_poses.
+        #if (gt_abs_poses - gt_traj_4x4 < 10e-12).all():
+        #    print('Correctly switching between absolute and relative ground truth poses.')
 
         ## Uncomment below for debugging
         #pred_traj_4x4 = gt_traj_4x4 #+ np.random.rand(gt_traj_4x4.shape[0],4,4)/1000
