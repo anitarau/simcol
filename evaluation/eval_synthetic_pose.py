@@ -172,8 +172,6 @@ def compute_errors(gt, pred, delta=1):
         trans = np.linalg.norm(t, ord=2)
         errs.append(trans)
         tr = np.arccos((np.trace(E[:3, :3]).clip(-3,3) -1)/2)
-        if np.isnan(tr):
-            print('')
         gt_tr = np.arccos((np.trace(Q[:3, :3]) -1)/2)
         rot_err.append(tr)
         rot_gt.append(gt_tr)
