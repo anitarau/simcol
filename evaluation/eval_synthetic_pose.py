@@ -62,7 +62,6 @@ def process_poses(test_folders, INPUT_PATH, GT_PATH):
         ## Absolute gt poses --> relative gt poses
         for i in range(0,gt_abs_poses.shape[0]-1,delta):
             out = get_relative_pose(gt_abs_poses[i],gt_abs_poses[i+delta])
-            out[:3,-1] = out[:3,-1]
             gt_rel_poses.append(out)
 
         first_pose = np.eye(4)  # define arbitrarily
