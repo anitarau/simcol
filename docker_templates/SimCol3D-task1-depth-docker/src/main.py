@@ -14,7 +14,7 @@ import numpy as np
 import os
 import glob
 import sys
-from add_your_code_here import predict_pose, predict_depth
+from add_your_code_here import predict_depth
 # import sys  
 
 INPUT_PATH = sys.argv[1]
