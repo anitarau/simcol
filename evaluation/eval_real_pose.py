@@ -110,18 +110,17 @@ def process_poses(test_folders, INPUT_PATH, GT_PATH):
 
 def plot_pred_trajectory(pred_traj_ours, gt_traj, name):
 
-    for j in range(len(gt_traj) - 2, len(gt_traj) - 1):
-        visualizer = CameraPoseVisualizerTotalTraj()
+    visualizer = CameraPoseVisualizerTotalTraj()
 
-        visualizer.extrinsic2lineAbs(gt_traj, 'c')
-        visualizer.extrinsic2lineAbs(pred_traj_ours, 'orange')
+    visualizer.extrinsic2lineAbs(gt_traj, 'c')
+    visualizer.extrinsic2lineAbs(pred_traj_ours, 'orange')
 
-        for i in range(j + 2):
-            visualizer.extrinsic2pyramidAbs(pred_traj_ours[i], 'orange', 0.3, model='ours')
-            visualizer.extrinsic2pyramidAbs(gt_traj[i], 'c', 0.3)
+    for i in range(len(gt_traj)):
+        visualizer.extrinsic2pyramidAbs(pred_traj_ours[i], 'orange', 0.3, model='ours')
+        visualizer.extrinsic2pyramidAbs(gt_traj[i], 'c', 0.3)
 
-        visualizer.customize_legend()
-        visualizer.show(name)
+    visualizer.customize_legend()
+    visualizer.show(name)
 
 def get_scale(gt, pred):
     # Negative scales are not allowed
