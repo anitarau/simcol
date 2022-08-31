@@ -109,12 +109,6 @@ def process_poses(test_folders, INPUT_PATH, GT_PATH):
         print('The total length of the trajectory is ', total_length)
 
 def plot_pred_trajectory(pred_traj_ours, gt_traj, name):
-    colors = []
-    colors_ours = []
-    colors_ES = []
-    colors.append('r')
-    colors_ours.append('orange')
-    colors_ES.append('g')
 
     for j in range(len(gt_traj) - 2, len(gt_traj) - 1):
         visualizer = CameraPoseVisualizerTotalTraj()
