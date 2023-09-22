@@ -10,7 +10,7 @@ The data from our paper and sequences from additional anatomies can be accessed 
 
 ## ⚙ Getting started
 
-Download the datasets from [Synapse](https://www.synapse.org/#!Synapse:syn28548633/wiki/617126). To visualize the data like above run `visualize_3D_data.py` with the updated path to the data. 
+The full dataset is now publicly available [here](https://rdr.ucl.ac.uk/articles/dataset/Simcol3D_-_3D_Reconstruction_during_Colonoscopy_Challenge_Dataset/24077763)). Access through Synapse is no longer required. To visualize the data like above run `visualize_3D_data.py` with the updated path to the data. 
 
 ## 🌍 Submitting to the SimCol-to-3D MICCAI challenge
 
