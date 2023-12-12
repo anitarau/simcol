@@ -1,3 +1,11 @@
+"""
+Bimodal Camera Pose Prediction for Endoscopy.
+
+This file is borrowed from EndoSLAM https://github.com/CapsuleEndoscope/EndoSLAM
+
+Edited by Anita Rau, a.rau.16@ucl.ac.uk, 2023
+"""
+
 import torch.utils.data as data
 import numpy as np
 from path import Path

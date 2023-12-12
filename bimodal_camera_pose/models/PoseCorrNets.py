@@ -4,6 +4,12 @@
 # which allows for non-commercial use only, the full terms of which are made
 # available in the LICENSE file.
 
+"""
+Bimodal Camera Pose Prediction for Endoscopy.
+
+Edited by Anita Rau, a.rau.16@ucl.ac.uk, 2023
+"""
+
 from __future__ import absolute_import, division, print_function
 
 import torch
