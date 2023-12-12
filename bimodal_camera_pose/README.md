@@ -1,6 +1,6 @@
 # [Bimodal Camera Pose Prediction for Endoscopy](https://arxiv.org/abs/2204.04968)
 
-This repo contains the traiing and testing code. 
+This repo contains the training and testing code for our method.
 
 ## ⚙ Getting started
 
@@ -19,3 +19,9 @@ python test.py /path/to/SyntheticColon_I --test-file /path/to/test_file.txt
 ## Training
 
 TO DO!
+
+
+## Misc
+
+Thanks to the authors of [EndoSLAM](https://github.com/CapsuleEndoscope/EndoSLAM/tree/master/EndoSfMLearner) whose repo helped us a lot!
+
