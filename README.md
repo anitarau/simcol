@@ -12,7 +12,7 @@ The full dataset is now publicly available [here](https://rdr.ucl.ac.uk/articles
 
 ## 🌍 Submitting to the SimCol-to-3D MICCAI challenge
 
-If you are a registered participant and would like to submit your results, please use the `docker_templates` and follow the official [submission guide](https://github.com/anitarau/simcol/blob/main/EndoVis-SimCol2022_submission_guide.pdf).
+The SimCol Challenge is now closed. The results can be found in the challenge paper [here](https://arxiv.org/pdf/2307.11261.pdf). 
 
 ## 📊 Evaluation and challenge leader board
 
