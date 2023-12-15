@@ -18,7 +18,9 @@ python test.py /path/to/SyntheticColon_I --test-file /path/to/test_file.txt
 
 ## Training
 
-TO DO!
+```
+python train.py /path/to/SyntheticColon_I --name my_exp_name --batch_size 128 --frames-apart 5 --train-file /path/to/train_file.txt --val-file /path/to/val_file.txt --epochs 50 --lr 0.001
+```
 
 
 ## Misc

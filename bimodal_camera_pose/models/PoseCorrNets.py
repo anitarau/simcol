@@ -174,6 +174,7 @@ class PoseCorrNet(nn.Module):
 
 
 class FeatureCorrelation(torch.nn.Module):
+    # From https://github.com/ignacio-rocco/ncnet/blob/master/lib/model.py, edited by AR 2023
     def __init__(self, shape='3D', normalization=True):
         super(FeatureCorrelation, self).__init__()
         self.normalization = normalization
@@ -200,6 +201,7 @@ class FeatureCorrelation(torch.nn.Module):
 
 
 def MutualMatching(corr4d):
+    # From https://github.com/ignacio-rocco/ncnet/blob/master/lib/model.py
     # mutual matching
     batch_size, ch, fs1, fs2, fs3, fs4 = corr4d.size()
 

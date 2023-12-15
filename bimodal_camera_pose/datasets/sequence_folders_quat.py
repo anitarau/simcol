@@ -27,8 +27,8 @@ class SequenceFolder(data.Dataset):
         np.random.seed(seed)
         random.seed(seed)
         self.root = Path(root)
-        scene_list_path = self.root / train_file if train else self.root / test_file
-        self.scenes = [self.root/folder[:-1] for folder in open(scene_list_path)]
+        scene_list_path =  train_file if train else test_file
+        self.scenes = [self.root/folder.split('/')[0] for folder in open(scene_list_path)]
         self.custom_transform = custom_transform
         self.k = skip_frames
         self.frames_apart = frames_apart
@@ -180,9 +180,6 @@ class SequenceFolder(data.Dataset):
             ref_imgs = [Image.open(ref_img).convert('RGB') for ref_img in sample['ref_imgs']]
             intrinsics = np.copy(sample['intrinsics'])
 
-
-
-        # pose_tm1 = sample['ref_poses'][0]
         pose_tp1 = sample['ref_poses'][1]
         tgt_pose = sample['tgt_pose']
 
@@ -207,7 +204,6 @@ class SequenceFolder(data.Dataset):
             tgt_gt_depth = self.to_tensor(np.array(tgt_gt_depth)) / 65000. * 20.  # get depth in cm
             ref_gt_depths = [self.to_tensor(np.array(ref_depth)) / 65000. * 20. for ref_depth in ref_gt_depths]
 
-        # ground truth (tested by pplaying to images and warping)
 
         pose_tp1 = pose_tp1[1]
         tgt_pose = tgt_pose[1]
@@ -215,8 +211,6 @@ class SequenceFolder(data.Dataset):
         pose_mat = np.matmul(np.linalg.inv(pose_tp1), tgt_pose)
         pose_inv_mat = np.matmul(np.linalg.inv(tgt_pose), pose_tp1)
 
-        #quat_diff = R.from_dcm(pose_mat[:3, :3]).as_quat()
-        #quat_diff_inv = R.from_dcm(pose_inv_mat[:3, :3]).as_quat()
         quat_diff = R.from_matrix(pose_mat[:3, :3]).as_quat()
         quat_diff_inv = R.from_matrix(pose_inv_mat[:3, :3]).as_quat()
         trans_from_quat = pose_mat[:3, -1]

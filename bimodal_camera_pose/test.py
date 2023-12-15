@@ -15,7 +15,6 @@ from loss_functions import logq_to_quaternion, quat2mat
 import torch.nn as nn
 from options import OptionsTest
 from align_traj import align
-import matplotlib as mpl
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
@@ -84,7 +83,7 @@ def eval(args, offset):
         gap=args.frames_apart,
         offset=offset,
         test_file=args.test_file,
-        im_size=args.im_size
+        im_size=args.im_size,
     )
 
     val_loader = torch.utils.data.DataLoader(
@@ -307,11 +306,11 @@ def compute_ate_rte(gt, pred, delta=1, plot=True):
 
     scale_factor = np.sum(gt[:, :, -1] * pred[:, :, -1]) / np.sum(pred[:, :, -1] ** 2)
     ATE_endo = np.median(np.linalg.norm((gt[:, :, -1] - scale_factor * pred[:, :, -1]), ord=2, axis=1))
-    ATE_2 = np.median(np.linalg.norm((gt[:, :, -1] - pred[:, :, -1]), ord=2, axis=1))
-    RTE_2 = np.median(errs)
+    ATE = np.median(np.linalg.norm((gt[:, :, -1] - pred[:, :, -1]), ord=2, axis=1))
+    RTE = np.median(errs)
     ROT = np.median(rot_err)
 
-    return ATE_2, RTE_2, errs, ROT, np.mean(rot_gt) * 180 / np.pi
+    return ATE, RTE, errs, ROT, np.mean(rot_gt) * 180 / np.pi
 
 
 

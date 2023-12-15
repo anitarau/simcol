@@ -47,18 +47,6 @@ def ralign(X,Y):
 
     return R,c,t
 
-# Run an example test
-# We have 3 points in 3D. Every point is a column vector of this matrix A
-#A=np.array([[0.57215 ,  0.37512 ,  0.37551] ,[0.23318 ,  0.86846 ,  0.98642],[ 0.79969 ,  0.96778 ,  0.27493]])
-## Deep copy A to get B
-#B=A.copy()
-## and sum a translation on z axis (3rd row) of 10 units
-#B[2,:]=B[2,:] + 10
-
-
-## Reconstruct the transformation with ralign.ralign
-#R, c, t = ralign(A,B)
-#print("Rotation matrix=\n",R,"\nScaling coefficient=",c,"\nTranslation vector=",t)
 def get_traj(first, rots, trans, direction='forward'):
     traj = []
     traj_4x4 = []
@@ -174,78 +162,9 @@ def align(model, data):
     trans = data.mean(1) - s * rot @ model.mean(1)
 
     model_aligned = s * rot @ model + trans.reshape(3,1)
-    #np.save('aligned_pred_traj.npy', model_aligned.transpose())
-    #alignment_error = model_aligned - data
 
-    #trans_error = np.sqrt(np.sum(np.multiply(alignment_error, alignment_error), 0)).A[0]
     trans_error = 0
 
     P = np.concatenate([s * rot, trans.reshape(3,1)], 1)
 
     return rot, trans, trans_error, s, P
-
-
-def plot_traj(ax, stamps, traj, style, color, label):
-    """
-    Plot a trajectory using matplotlib.
-
-    Input:
-    ax -- the plot
-    stamps -- time stamps (1xn)
-    traj -- trajectory (3xn)
-    style -- line style
-    color -- line color
-    label -- plot legend
-
-    """
-    stamps.sort()
-    interval = np.median([s - t for s, t in zip(stamps[1:], stamps[:-1])])
-    x = []
-    y = []
-    last = stamps[0]
-    for i in range(len(stamps)):
-        if stamps[i] - last < 2 * interval:
-            x.append(traj[i][0])
-            y.append(traj[i][1])
-        elif len(x) > 0:
-            ax.plot(x, y, style, color=color, label=label)
-            label = ""
-            x = []
-            y = []
-        last = stamps[i]
-    if len(x) > 0:
-        ax.plot(x, y, style, color=color, label=label)
-
-
-if __name__ == "__main__":
-    gt_xyz = np.load("gt_traj.npy").transpose()
-    pred_xyz = np.load("pred_traj_accumulated.npy").transpose()
-    rot, trans, trans_error, scale = align(pred_xyz, gt_xyz)
-
-    pred_xyz_aligned = scale * rot * pred_xyz + trans
-
-
-    if False:
-        import matplotlib
-
-        matplotlib.use('Agg')
-        import matplotlib.pyplot as plt
-        import matplotlib.pylab as pylab
-        from matplotlib.patches import Ellipse
-
-        fig = plt.figure()
-        ax = fig.add_subplot(111)
-        plot_traj(ax, first_stamps, first_xyz_full.transpose().A, '-', "black", "ground truth")
-        plot_traj(ax, second_stamps, second_xyz_full_aligned.transpose().A, '-', "blue", "estimated")
-
-        label = "difference"
-        for (a, b), (x1, y1, z1), (x2, y2, z2) in zip(matches, first_xyz.transpose().A,
-                                                      second_xyz_aligned.transpose().A):
-            ax.plot([x1, x2], [y1, y2], '-', color="red", label=label)
-            label = ""
-
-        ax.legend()
-
-        ax.set_xlabel('x [m]')
-        ax.set_ylabel('y [m]')
-        plt.savefig(args.plot, dpi=90)

@@ -50,7 +50,6 @@ class OptionsTrain:
                             metavar='W', default=0.5)
         self.parser.add_argument('-e', '--endo-slam-weight', type=float, help='weight for total EndoSLAM loss', metavar='W',
                             default=1)
-        self.parser.add_argument('--odo-w', '--odometry-loss-weight', type=float, help='weight for odo map', default=1)
         self.parser.add_argument('--class-w', '--cross-entropy-loss-weight', type=float, help='weight for class net', default=0.1)
 
         self.parser.add_argument('--with-ssim', type=int, default=1, help='with ssim or not')
@@ -61,17 +60,15 @@ class OptionsTrain:
         self.parser.add_argument('--with-auto-mask', type=int, default=0, help='with the the mask for stationary points')
         self.parser.add_argument('--with-pretrain', type=int, default=1, help='with or without imagenet pretrain for resnet')
         self.parser.add_argument('--with-resize', type=int, default=1, help='resize input images yes/no')
-        self.parser.add_argument('--dataset', type=str, choices=['kitti', 'nyu', 'blender', 'kCfull', 'M', 'T', 'C', 'S', 'A'], default='kitti',
+        self.parser.add_argument('--dataset', type=str, choices=['kitti', 'S'], default='S',
                             help='the dataset to train')
-        self.parser.add_argument('--val-dataset', type=str, choices=['kitti', 'nyu', 'blender', 'kCfull', 'M', 'T', 'C','S', 'A'],
-                            default='kitti', help='the dataset to train')
+        self.parser.add_argument('--val-dataset', type=str, choices=['kitti','S'],
+                            default='S', help='the dataset to train')
 
         self.parser.add_argument('--pretrained-disp', dest='pretrained_disp', default=None, metavar='PATH',
                             help='path to pre-trained dispnet model')
         self.parser.add_argument('--pretrained-pose', dest='pretrained_pose', default=None, metavar='PATH',
                             help='path to pre-trained Pose net model')
-        self.parser.add_argument('--pretrained-netD', dest='pretrained_netD', default=None, metavar='PATH',
-                            help='path to pre-trained discriminator netD model')
         self.parser.add_argument('--name', dest='name', type=str, required=True,
                             help='name of the experiment, checkpoints are stored in checpoints/name')
         self.parser.add_argument('--padding-mode', type=str, choices=['zeros', 'border'], default='zeros',
@@ -81,20 +78,11 @@ class OptionsTrain:
         self.parser.add_argument('--with-gt', action='store_true', help='use ground truth for validation. \
                             You need to store it in npy 2D arrays see data/kitti_raw_loader.py for an example')
         self.parser.add_argument('--train-file', type=str, default='train_M.txt', help='name of training file')
-        self.parser.add_argument('--test-file', type=str, default='val.txt', help='name of test file')
-        self.parser.add_argument('--pose-model', type=str, default='posecorrnet11', help='Choose network to predict pose')
+        self.parser.add_argument('--val-file', type=str, default='val.txt', help='name of val file')
+        self.parser.add_argument('--pose-model', type=str, default='posecorrnet', help='Choose network to predict pose')
         self.parser.add_argument('--pose-decoder', type=str, default='conv', choices=['conv','fc','resnet'], help='Choose network to decode pose')
-        self.parser.add_argument('--fs', type=int, default=2, choices=[1,2,3,256,1024,1026], help='number of features in PoseNet')
+        self.parser.add_argument('--fs', type=int, default=256, choices=[256], help='number of features in PoseNet')
         self.parser.add_argument('--im-size', type=int, default=256, help='Target input size into network')
-        self.parser.add_argument('--isTrain', type=bool, default=1)
-        self.parser.add_argument('--input_nc', type=int, default=3, help='number of input channels to depth net')
-        self.parser.add_argument('--output_nc', type=bool, default=1, help='number of output channels of depth net')
-        self.parser.add_argument('--ngf', type=int, default=64, help='# of gen filters in the last conv layer')
-        self.parser.add_argument('--ndf', type=int, default=64, help='# of discrim filters in the first conv layer')
-        self.parser.add_argument('--no_dropout', action='store_true', help='no dropout for the generator')
-        self.parser.add_argument('--beta1', type=float, default=0.5, help='momentum term of adam')
-        self.parser.add_argument('--gan_mode', type=str, default='vanilla', help='the type of GAN objective. [vanilla| lsgan | wgangp]. vanilla GAN loss is the cross-entropy objective used in the original GAN paper.')
-        self.parser.add_argument('--lambda_L1', type=float, default=100.0, help='weight for L1 loss')
         self.parser.add_argument('--embedded-size', type=int, default=None, help='optical flow map size')
         self.parser.add_argument('--binned', type=int, default=1, help='bimodal pose flag')
 
@@ -121,12 +109,11 @@ class OptionsTest:
         self.parser.add_argument("--dataset-dir", type=str, help="Dataset directory")
         self.parser.add_argument('--sequence-length', type=int, metavar='N', help='sequence length for testing', default=3)
         self.parser.add_argument("--output-dir", default=None, type=str, help="Output directory for saving predictions in a big 3D numpy file")
-        self.parser.add_argument('--dataset', type=str, choices=['kitti', 'nyu', 'blender','kCfull','M','T', 'C','S','A'], default='kitti', help='the dataset to test')
-        self.parser.add_argument('--cross-num', type=str, default='1', help='which cross validation index')
+        self.parser.add_argument('--dataset', type=str, choices=['kitti','S'], default='S', help='the dataset to test')
         self.parser.add_argument('--test-file', type=str, default='test_file.txt', help='name of validation file')
-        self.parser.add_argument('--pose-model', type=str, default='posecorrnet11', help='Choose network to predict pose')
+        self.parser.add_argument('--pose-model', type=str, default='posecorrnet', help='Choose network to predict pose')
         self.parser.add_argument('--pose-decoder', type=str, default='conv', choices=['conv','fc','resnet'], help='Choose network to decode pose')
-        self.parser.add_argument('--fs', type=int, default=2, choices=[1,2,3,256,1024,1026], help='number of features in PoseNet')
+        self.parser.add_argument('--fs', type=int, default=256, choices=[256], help='number of features in PoseNet')
         self.parser.add_argument('--im-size', type=int, default=256, help='Target input size into network')
         self.parser.add_argument('--isTrain', type=bool, default=0)
         self.parser.add_argument('--input_nc', type=int, default=3, help='number of input channels to depth net')
@@ -138,8 +125,6 @@ class OptionsTest:
         self.parser.add_argument('--resnet-layers', type=int, default=18, choices=[18, 50],
                             help='number of ResNet layers for depth estimation.')
         self.parser.add_argument('--with-pretrain', type=int, default=1, help='with or without imagenet pretrain for resnet')
-        self.parser.add_argument('--num-scales', '--number-of-scales', type=int, help='the number of scales', metavar='W',
-                            default=1)
         self.parser.add_argument('--with-ssim', type=int, default=1, help='with ssim or not')
         self.parser.add_argument('--with-mask', type=int, default=1,
                             help='with the the mask for moving objects and occlusions or not')
